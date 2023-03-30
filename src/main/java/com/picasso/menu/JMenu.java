@@ -18,16 +18,17 @@ import java.awt.event.MouseEvent;
 @SuppressWarnings("serial")
 public class JMenu extends JFrame {
 
-	private JPanel contentPane, navPanel, infoPanel, currencyPanel, temperaturePanel;
-	private JTextField inputCurrency, outputCurrency;
+	private JPanel contentPane, navPanel, infoPanel, currencyPanel, temperaturePanel, btnExit, btnCurrency, btnTemp;
+	private JTextField inputCurrency, outputCurrency, inputTemperature, outputTemperature;
 	private JSeparator separator, separator_1;
-	private JLabel arrowIcon, txtSubtitle, txtSubtitle2, txtTitle, tempIcon, currencyIcon;
+	private JLabel arrowIcon, txtSubtitle, txtSubtitle2, txtTitle, tempIcon, currencyIcon, txtBtnCurrency, txtBtnExit, txtBtnTemp, gitIcon, linkIcon;
+	private Image icon;
 
 	/**
 	 * Create the frame.
 	 */
 	public JMenu() {
-		Image icon = new ImageIcon(getClass().getResource("/img/programIcon.png")).getImage();
+		icon = new ImageIcon(getClass().getResource("/img/programIcon.png")).getImage();
 		setIconImage(icon);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -46,13 +47,19 @@ public class JMenu extends JFrame {
 		navPanel.setLayout(null);
 		contentPane.add(navPanel);
 		
-		JPanel btnTemp = new JPanel();
+		btnTemp = new JPanel();
 		btnTemp.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				temperaturePanel.setVisible(true);
 				currencyPanel.setVisible(false);
 				infoPanel.setVisible(false);
+				btnTemp.setBackground(Color.WHITE);
+				txtBtnTemp.setForeground(Color.BLACK);
+				btnExit.setBackground(new Color(63,63,63));
+				txtBtnExit.setForeground(new Color(240,240,240));
+				btnCurrency.setBackground(new Color(63,63,63));
+				txtBtnCurrency.setForeground(new Color(240,240,240));
 			}
 		});
 		btnTemp.setBackground(new Color(63, 63, 63));
@@ -60,29 +67,35 @@ public class JMenu extends JFrame {
 		navPanel.add(btnTemp);
 		btnTemp.setLayout(null);
 		
-		JLabel txtBtnTemp = new JLabel("Conversor de temperatura");
+		txtBtnTemp = new JLabel("Conversor de temperatura");
 		txtBtnTemp.setBounds(30, 11, 207, 21);
 		txtBtnTemp.setFont(new Font("Monospaced", Font.BOLD, 14));
 		txtBtnTemp.setForeground(new Color(255, 255, 255));
 		btnTemp.add(txtBtnTemp);
 		
-		JLabel titleNav = new JLabel("Conversor Alura");
-		titleNav.setFont(new Font("Monospaced", Font.BOLD, 20));
-		titleNav.setForeground(new Color(255, 255, 255));
-		titleNav.setBounds(28, 30, 197, 43);
-		navPanel.add(titleNav);
+		txtTitle = new JLabel("Conversor Alura");
+		txtTitle.setFont(new Font("Monospaced", Font.BOLD, 20));
+		txtTitle.setForeground(new Color(255, 255, 255));
+		txtTitle.setBounds(28, 30, 197, 43);
+		navPanel.add(txtTitle);
 		
 		separator = new JSeparator();
 		separator.setBounds(28, 70, 179, 2);
 		navPanel.add(separator);
 		
-		JPanel btnCurrency = new JPanel();
+		btnCurrency = new JPanel();
 		btnCurrency.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				currencyPanel.setVisible(true);
 				infoPanel.setVisible(false);
 				temperaturePanel.setVisible(false);
+				btnCurrency.setBackground(Color.WHITE);
+				txtBtnCurrency.setForeground(Color.BLACK);
+				btnExit.setBackground(new Color(63,63,63));
+				txtBtnExit.setForeground(new Color(240,240,240));
+				btnTemp.setBackground(new Color(63,63,63));
+				txtBtnTemp.setForeground(new Color(240,240,240));
 			}
 		});
 		btnCurrency.setLayout(null);
@@ -90,17 +103,27 @@ public class JMenu extends JFrame {
 		btnCurrency.setBounds(0, 128, 247, 43);
 		navPanel.add(btnCurrency);
 		
-		JLabel txtBtnCurrency = new JLabel("Conversor de divisas");
+		txtBtnCurrency = new JLabel("Conversor de divisas");
 		txtBtnCurrency.setForeground(Color.WHITE);
 		txtBtnCurrency.setFont(new Font("Monospaced", Font.BOLD, 14));
 		txtBtnCurrency.setBounds(39, 11, 168, 21);
 		btnCurrency.add(txtBtnCurrency);
 		
-		JPanel btnExit = new JPanel();
+		btnExit = new JPanel();
 		btnExit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.exit(0);
+				
+			}
+			@Override
+			public void mousePressed(MouseEvent e) {
+				btnExit.setBackground(Color.WHITE);
+				txtBtnExit.setForeground(Color.BLACK);
+				btnTemp.setBackground(new Color(63,63,63));
+				txtBtnTemp.setForeground(new Color(240,240,240));
+				btnCurrency.setBackground(new Color(63,63,63));
+				txtBtnCurrency.setForeground(new Color(240,240,240));
 			}
 		});
 		btnExit.setLayout(null);
@@ -108,7 +131,7 @@ public class JMenu extends JFrame {
 		btnExit.setBounds(0, 267, 247, 43);
 		navPanel.add(btnExit);
 		
-		JLabel txtBtnExit = new JLabel("Salir");
+		txtBtnExit = new JLabel("Salir");
 		txtBtnExit.setForeground(Color.WHITE);
 		txtBtnExit.setFont(new Font("Monospaced", Font.BOLD, 14));
 		txtBtnExit.setBounds(95, 11, 63, 21);
@@ -155,17 +178,17 @@ public class JMenu extends JFrame {
 		tempIcon.setBounds(388, 39, 63, 111);
 		infoPanel.add(tempIcon);
 		
-		JLabel lblGitIcon = new JLabel();
-		lblGitIcon.setIcon(new ImageIcon("src/main/java/img/githubIcon.png"));
-		lblGitIcon.setHorizontalAlignment(SwingConstants.CENTER);
-		lblGitIcon.setBounds(235, 304, 32, 33);
-		infoPanel.add(lblGitIcon);
+		gitIcon = new JLabel();
+		gitIcon.setIcon(new ImageIcon("src/main/java/img/githubIcon.png"));
+		gitIcon.setHorizontalAlignment(SwingConstants.CENTER);
+		gitIcon.setBounds(235, 304, 32, 33);
+		infoPanel.add(gitIcon);
 		
-		JLabel lblLinkIcon = new JLabel();
-		lblLinkIcon.setIcon(new ImageIcon("src/main/java/img/linkedinIcon.png"));
-		lblLinkIcon.setHorizontalAlignment(SwingConstants.CENTER);
-		lblLinkIcon.setBounds(296, 307, 32, 30);
-		infoPanel.add(lblLinkIcon);
+		linkIcon = new JLabel();
+		linkIcon.setIcon(new ImageIcon("src/main/java/img/linkedinIcon.png"));
+		linkIcon.setHorizontalAlignment(SwingConstants.CENTER);
+		linkIcon.setBounds(296, 307, 32, 30);
+		infoPanel.add(linkIcon);
 		
 		//////////////////////////////////////////////////////////////
 		
@@ -286,11 +309,11 @@ public class JMenu extends JFrame {
 		comboBoxTemp.setBounds(348, 193, 130, 33);
 		temperaturePanel.add(comboBoxTemp);
 		
-		inputCurrency = new JTextField();
-		inputCurrency.setFont(new Font("Monospaced", Font.BOLD, 12));
-		inputCurrency.setBounds(82, 192, 154, 33);
-		temperaturePanel.add(inputCurrency);
-		inputCurrency.setColumns(10);
+		inputTemperature = new JTextField();
+		inputTemperature.setFont(new Font("Monospaced", Font.BOLD, 12));
+		inputTemperature.setBounds(82, 192, 154, 33);
+		temperaturePanel.add(inputTemperature);
+		inputTemperature.setColumns(10);
 		
 		JComboBox comboBoxTemp2 = new JComboBox();
 		comboBoxTemp2.setForeground(Color.WHITE);
@@ -298,10 +321,10 @@ public class JMenu extends JFrame {
 		comboBoxTemp2.setBounds(348, 282, 130, 33);
 		temperaturePanel.add(comboBoxTemp2);
 		
-		outputCurrency = new JTextField();
-		outputCurrency.setFont(new Font("Monospaced", Font.BOLD, 12));
-		outputCurrency.setColumns(10);
-		outputCurrency.setBounds(82, 281, 154, 33);
-		temperaturePanel.add(outputCurrency);
+		outputTemperature = new JTextField();
+		outputTemperature.setFont(new Font("Monospaced", Font.BOLD, 12));
+		outputTemperature.setColumns(10);
+		outputTemperature.setBounds(82, 281, 154, 33);
+		temperaturePanel.add(outputTemperature);
 	}
 }
