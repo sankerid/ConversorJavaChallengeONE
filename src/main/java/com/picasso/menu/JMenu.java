@@ -10,23 +10,20 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
-import javax.swing.JComboBox;
-import javax.swing.JTextField;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 @SuppressWarnings("serial")
 public class JMenu extends JFrame {
 
-	private JPanel contentPane, navPanel, infoPanel, currencyPanel, temperaturePanel, btnExit, btnCurrency, btnTemp;
-	private JTextField inputCurrency, outputCurrency, inputTemperature, outputTemperature;
+	private JPanel contentPane, navPanel, infoPanel, btnExit, btnCurrency, btnTemp;
 	private JSeparator separator, separator_1;
-	private JLabel arrowIcon, txtSubtitle, txtSubtitle2, txtTitle, tempIcon, currencyIcon, txtBtnCurrency, txtBtnExit, txtBtnTemp, gitIcon, linkIcon;
+	private JLabel txtSubtitle, txtTitle, tempIcon, currencyIcon, txtBtnCurrency, txtBtnExit, txtBtnTemp, gitIcon, linkIcon;
 	private Image icon;
+	private TemperaturePanel temperaturePanel;
+	private CurrencyPanel currencyPanel;
 
-	/**
-	 * Create the frame.
-	 */
+	
 	public JMenu() {
 		icon = new ImageIcon(getClass().getResource("/img/programIcon.png")).getImage();
 		setIconImage(icon);
@@ -38,6 +35,12 @@ public class JMenu extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		temperaturePanel = new TemperaturePanel();
+		temperaturePanel.setBounds(247, 0, 532, 386);
+		contentPane.add(temperaturePanel);
+		currencyPanel = new CurrencyPanel();
+		currencyPanel.setBounds(247, 0, 532, 386);
+		contentPane.add(currencyPanel);
 		
 		//////////////////////////////////////////////////////////////
 		
@@ -142,7 +145,7 @@ public class JMenu extends JFrame {
 		
 		infoPanel = new JPanel();
 		infoPanel.setBackground(new Color(255, 255, 255));
-		infoPanel.setBounds(235, 0, 544, 386);
+		infoPanel.setBounds(245, 0, 534, 386);
 		infoPanel.setLayout(null);
 		contentPane.add(infoPanel);
 		
@@ -189,142 +192,5 @@ public class JMenu extends JFrame {
 		linkIcon.setHorizontalAlignment(SwingConstants.CENTER);
 		linkIcon.setBounds(296, 307, 32, 30);
 		infoPanel.add(linkIcon);
-		
-		//////////////////////////////////////////////////////////////
-		
-		currencyPanel = new JPanel();
-		currencyPanel.setBounds(235, 0, 544, 386);
-		currencyPanel.setLayout(null);
-		contentPane.add(currencyPanel);
-		currencyPanel.setVisible(false);
-		
-		txtTitle = new JLabel("Conversor de divisas");
-		txtTitle.setFont(new Font("Monospaced", Font.BOLD, 24));
-		txtTitle.setBounds(188, 50, 289, 33);
-		currencyPanel.add(txtTitle);
-		
-		separator = new JSeparator();
-		separator.setForeground(new Color(0, 0, 0));
-		separator.setBounds(188, 83, 277, 2);
-		currencyPanel.add(separator);
-		
-		separator_1 = new JSeparator();
-		separator_1.setForeground(new Color(0, 0, 0));
-		separator_1.setBounds(188, 50, 277, 2);
-		currencyPanel.add(separator_1);
-		
-		JComboBox comboBoxCurrency = new JComboBox();
-		comboBoxCurrency.setBackground(new Color(0, 0, 0));
-		comboBoxCurrency.setForeground(new Color(255, 255, 255));
-		comboBoxCurrency.setBounds(85, 178, 193, 33);
-		currencyPanel.add(comboBoxCurrency);
-		
-		inputCurrency = new JTextField();
-		inputCurrency.setFont(new Font("Monospaced", Font.BOLD, 12));
-		inputCurrency.setBounds(327, 177, 154, 33);
-		currencyPanel.add(inputCurrency);
-		inputCurrency.setColumns(10);
-		
-		arrowIcon = new JLabel();
-		arrowIcon.setIcon(new ImageIcon("C:\\Users\\JAPM_\\eclipse-workspace\\ConversorJavaChallengeONE\\src\\main\\java\\img\\arrowIcon.png"));
-		arrowIcon.setBounds(286, 222, 35, 39);
-		currencyPanel.add(arrowIcon);
-		
-		JComboBox comboBoxCurrency2 = new JComboBox();
-		comboBoxCurrency2.setForeground(Color.WHITE);
-		comboBoxCurrency2.setBackground(Color.BLACK);
-		comboBoxCurrency2.setBounds(85, 297, 193, 33);
-		currencyPanel.add(comboBoxCurrency2);
-		
-		outputCurrency = new JTextField();
-		outputCurrency.setFont(new Font("Monospaced", Font.BOLD, 12));
-		outputCurrency.setColumns(10);
-		outputCurrency.setBounds(327, 296, 154, 33);
-		currencyPanel.add(outputCurrency);
-		
-		txtSubtitle = new JLabel("Cambiar de:");
-		txtSubtitle.setFont(new Font("Monospaced", Font.BOLD, 16));
-		txtSubtitle.setBounds(239, 153, 118, 14);
-		currencyPanel.add(txtSubtitle);
-		
-		txtSubtitle2 = new JLabel("Cambiar a:");
-		txtSubtitle2.setFont(new Font("Monospaced", Font.BOLD, 16));
-		txtSubtitle2.setBounds(239, 272, 108, 14);
-		currencyPanel.add(txtSubtitle2);
-		
-		currencyIcon = new JLabel();
-		currencyIcon.setHorizontalAlignment(SwingConstants.CENTER);
-		currencyIcon.setIcon(new ImageIcon("C:\\Users\\JAPM_\\eclipse-workspace\\ConversorJavaChallengeONE\\src\\main\\java\\img\\currencyIcon.png"));
-		currencyIcon.setBounds(70, 11, 108, 109);
-		currencyPanel.add(currencyIcon);
-		
-		//////////////////////////////////////////////////////////////
-		
-		temperaturePanel = new JPanel();
-		temperaturePanel.setBounds(229, 0, 550, 386);
-		temperaturePanel.setLayout(null);
-		contentPane.add(temperaturePanel);
-		temperaturePanel.setVisible(false);
-		
-		txtTitle = new JLabel("Conversor de temperatura");
-		txtTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		txtTitle.setFont(new Font("Monospaced", Font.BOLD, 24));
-		txtTitle.setBounds(129, 51, 351, 42);
-		temperaturePanel.add(txtTitle);
-		
-		separator = new JSeparator();
-		separator.setForeground(new Color(0, 0, 0));
-		separator.setBounds(139, 51, 341, 2);
-		temperaturePanel.add(separator);
-		
-		separator_1 = new JSeparator();
-		separator_1.setForeground(new Color(0, 0, 0));
-		separator_1.setBounds(139, 91, 341, 2);
-		temperaturePanel.add(separator_1);
-		
-		tempIcon = new JLabel();
-		tempIcon.setHorizontalAlignment(SwingConstants.CENTER);
-		tempIcon.setIcon(new ImageIcon("C:\\Users\\JAPM_\\eclipse-workspace\\ConversorJavaChallengeONE\\src\\main\\java\\img\\temperatureIcon.png"));
-		tempIcon.setBounds(71, 30, 65, 108);
-		temperaturePanel.add(tempIcon);
-		
-		arrowIcon = new JLabel();
-		arrowIcon.setIcon(new ImageIcon("C:\\Users\\JAPM_\\eclipse-workspace\\ConversorJavaChallengeONE\\src\\main\\java\\img\\arrowIcon.png"));
-		arrowIcon.setBounds(273, 232, 35, 39);
-		temperaturePanel.add(arrowIcon);
-		
-		txtSubtitle = new JLabel("Valor en:");
-		txtSubtitle.setFont(new Font("Monospaced", Font.BOLD, 16));
-		txtSubtitle.setBounds(246, 200, 100, 14);
-		temperaturePanel.add(txtSubtitle);
-		
-		txtSubtitle2 = new JLabel("Cambiar a:");
-		txtSubtitle2.setFont(new Font("Monospaced", Font.BOLD, 16));
-		txtSubtitle2.setBounds(246, 289, 100, 14);
-		temperaturePanel.add(txtSubtitle2);
-		
-		JComboBox comboBoxTemp = new JComboBox();
-		comboBoxTemp.setBackground(new Color(0, 0, 0));
-		comboBoxTemp.setForeground(new Color(255, 255, 255));
-		comboBoxTemp.setBounds(348, 193, 130, 33);
-		temperaturePanel.add(comboBoxTemp);
-		
-		inputTemperature = new JTextField();
-		inputTemperature.setFont(new Font("Monospaced", Font.BOLD, 12));
-		inputTemperature.setBounds(82, 192, 154, 33);
-		temperaturePanel.add(inputTemperature);
-		inputTemperature.setColumns(10);
-		
-		JComboBox comboBoxTemp2 = new JComboBox();
-		comboBoxTemp2.setForeground(Color.WHITE);
-		comboBoxTemp2.setBackground(Color.BLACK);
-		comboBoxTemp2.setBounds(348, 282, 130, 33);
-		temperaturePanel.add(comboBoxTemp2);
-		
-		outputTemperature = new JTextField();
-		outputTemperature.setFont(new Font("Monospaced", Font.BOLD, 12));
-		outputTemperature.setColumns(10);
-		outputTemperature.setBounds(82, 281, 154, 33);
-		temperaturePanel.add(outputTemperature);
 	}
 }
