@@ -3,7 +3,10 @@ package com.picasso.menu;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
+import java.awt.Desktop;
+import java.awt.Desktop.Action;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -12,6 +15,9 @@ import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 @SuppressWarnings("serial")
 public class JMenu extends JFrame {
@@ -42,7 +48,7 @@ public class JMenu extends JFrame {
 		currencyPanel.setBounds(247, 0, 532, 386);
 		contentPane.add(currencyPanel);
 		
-		//////////////////////////////////////////////////////////////
+		// Navigation panel
 		
 		navPanel = new JPanel();
 		navPanel.setBackground(new Color(0, 0, 0));
@@ -51,20 +57,6 @@ public class JMenu extends JFrame {
 		contentPane.add(navPanel);
 		
 		btnTemp = new JPanel();
-		btnTemp.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				temperaturePanel.setVisible(true);
-				currencyPanel.setVisible(false);
-				infoPanel.setVisible(false);
-				btnTemp.setBackground(Color.WHITE);
-				txtBtnTemp.setForeground(Color.BLACK);
-				btnExit.setBackground(new Color(63,63,63));
-				txtBtnExit.setForeground(new Color(240,240,240));
-				btnCurrency.setBackground(new Color(63,63,63));
-				txtBtnCurrency.setForeground(new Color(240,240,240));
-			}
-		});
 		btnTemp.setBackground(new Color(63, 63, 63));
 		btnTemp.setBounds(0, 195, 247, 43);
 		navPanel.add(btnTemp);
@@ -87,20 +79,6 @@ public class JMenu extends JFrame {
 		navPanel.add(separator);
 		
 		btnCurrency = new JPanel();
-		btnCurrency.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				currencyPanel.setVisible(true);
-				infoPanel.setVisible(false);
-				temperaturePanel.setVisible(false);
-				btnCurrency.setBackground(Color.WHITE);
-				txtBtnCurrency.setForeground(Color.BLACK);
-				btnExit.setBackground(new Color(63,63,63));
-				txtBtnExit.setForeground(new Color(240,240,240));
-				btnTemp.setBackground(new Color(63,63,63));
-				txtBtnTemp.setForeground(new Color(240,240,240));
-			}
-		});
 		btnCurrency.setLayout(null);
 		btnCurrency.setBackground(new Color(63, 63, 63));
 		btnCurrency.setBounds(0, 128, 247, 43);
@@ -113,22 +91,6 @@ public class JMenu extends JFrame {
 		btnCurrency.add(txtBtnCurrency);
 		
 		btnExit = new JPanel();
-		btnExit.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				System.exit(0);
-				
-			}
-			@Override
-			public void mousePressed(MouseEvent e) {
-				btnExit.setBackground(Color.WHITE);
-				txtBtnExit.setForeground(Color.BLACK);
-				btnTemp.setBackground(new Color(63,63,63));
-				txtBtnTemp.setForeground(new Color(240,240,240));
-				btnCurrency.setBackground(new Color(63,63,63));
-				txtBtnCurrency.setForeground(new Color(240,240,240));
-			}
-		});
 		btnExit.setLayout(null);
 		btnExit.setBackground(new Color(63, 63, 63));
 		btnExit.setBounds(0, 267, 247, 43);
@@ -137,11 +99,10 @@ public class JMenu extends JFrame {
 		txtBtnExit = new JLabel("Salir");
 		txtBtnExit.setForeground(Color.WHITE);
 		txtBtnExit.setFont(new Font("Monospaced", Font.BOLD, 14));
-		txtBtnExit.setBounds(95, 11, 63, 21);
+		txtBtnExit.setBounds(102, 11, 51, 21);
 		btnExit.add(txtBtnExit);
 		
-		//////////////////////////////////////////////////////////////
-		
+		// Information panel
 		
 		infoPanel = new JPanel();
 		infoPanel.setBackground(new Color(255, 255, 255));
@@ -192,5 +153,102 @@ public class JMenu extends JFrame {
 		linkIcon.setHorizontalAlignment(SwingConstants.CENTER);
 		linkIcon.setBounds(296, 307, 32, 30);
 		infoPanel.add(linkIcon);
+		
+		//  Class events
+		
+		/**
+		* This method is called when the mouse is clicked on a component.
+		* It sets the visibility of temperaturePanel to true, and the visibility of currencyPanel and infoPanel to false.
+		* It also sets the background color of btnTemp to white and the foreground color of txtBtnTemp to black.
+		* Additionally, it sets the background color of btnExit to a dark gray and the foreground color of txtBtnExit to a light gray.
+		* Finally, it sets the background color of btnCurrency to a dark gray and the foreground color of txtBtnCurrency to a light gray, 
+		* and resets the currencyPanel to its initial state.
+		* @param e the MouseEvent object representing the mouse click event
+		*/
+		btnTemp.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				temperaturePanel.setVisible(true);
+				currencyPanel.setVisible(false);
+				infoPanel.setVisible(false);
+				btnTemp.setBackground(Color.WHITE);
+				txtBtnTemp.setForeground(Color.BLACK);
+				btnExit.setBackground(new Color(63,63,63));
+				txtBtnExit.setForeground(new Color(240,240,240));
+				btnCurrency.setBackground(new Color(63,63,63));
+				txtBtnCurrency.setForeground(new Color(240,240,240));
+				currencyPanel.resetCurrencyPanel();
+			}
+		});
+		
+		
+		btnCurrency.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				currencyPanel.setVisible(true);
+				infoPanel.setVisible(false);
+				temperaturePanel.setVisible(false);
+				btnCurrency.setBackground(Color.WHITE);
+				txtBtnCurrency.setForeground(Color.BLACK);
+				btnExit.setBackground(new Color(63,63,63));
+				txtBtnExit.setForeground(new Color(240,240,240));
+				btnTemp.setBackground(new Color(63,63,63));
+				txtBtnTemp.setForeground(new Color(240,240,240));
+				temperaturePanel.resetTemperaturePanel();
+			}
+		});
+		
+		
+		btnExit.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.exit(0);
+			}
+			@Override
+			public void mousePressed(MouseEvent e) {
+				btnExit.setBackground(Color.WHITE);
+				txtBtnExit.setForeground(Color.BLACK);
+				btnTemp.setBackground(new Color(63,63,63));
+				txtBtnTemp.setForeground(new Color(240,240,240));
+				btnCurrency.setBackground(new Color(63,63,63));
+				txtBtnCurrency.setForeground(new Color(240,240,240));
+			}
+		});
+		
+		
+		gitIcon.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				goToURL("https://github.com/A-Picasso");
+			}
+		});
+		
+		
+		linkIcon.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				goToURL("https://www.linkedin.com/in/jose-alberto-picasso-mtz/");
+			}
+		});
+		
 	}
+	
+	
+	// Class methods
+	
+	public void goToURL( String url ) {
+		if ( Desktop.isDesktopSupported() ) {
+			Desktop desktop = Desktop.getDesktop();
+			if ( desktop.isSupported(Action.BROWSE)) {
+				try {
+					URI uri = new URI(url);
+					desktop.browse(uri);
+				} catch (URISyntaxException | IOException ex) {
+					JOptionPane.showMessageDialog(null, "Exception: " + ex.getMessage());
+				}
+			}
+		}
+	}
+
+	
 }

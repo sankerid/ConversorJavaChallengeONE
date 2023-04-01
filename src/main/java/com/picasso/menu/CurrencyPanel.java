@@ -2,26 +2,40 @@ package com.picasso.menu;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import com.picasso.methods.ExchangeApiRequest;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.DecimalFormat;
+import static javax.swing.JOptionPane.WARNING_MESSAGE;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 @SuppressWarnings("serial")
 public class CurrencyPanel extends JPanel {
 	
 	private JTextField inputCurrency, outputCurrency;
 	private JSeparator separator, separator_1;
-	private JLabel txtTitle, arrowIcon, txtSubtitle, currencyIcon;
-	private JComboBox comboBoxCurrency, comboBoxCurrency2;
+	private JLabel txtTitle, txtSubtitle, currencyIcon, txtButton;
+	private JComboBox<String> cbFrom, cbTo;
+	private PanelRound btnConveter;
+	private List<String[]> currencySymbols;
+	private String getCbFrom, getCbTo;
 
 	public CurrencyPanel() {
 		setBounds(235, 0, 544, 386);
 		setLayout(null);
 		setVisible(false);
+		currencySymbols = ExchangeApiRequest.getSymbolsRequest();
 		
 		txtTitle = new JLabel("Conversor de divisas");
 		txtTitle.setFont(new Font("Monospaced", Font.BOLD, 24));
@@ -38,33 +52,41 @@ public class CurrencyPanel extends JPanel {
 		separator_1.setBounds(180, 61, 277, 2);
 		add(separator_1);
 		
-		comboBoxCurrency = new JComboBox();
-		comboBoxCurrency.setBackground(new Color(0, 0, 0));
-		comboBoxCurrency.setForeground(new Color(255, 255, 255));
-		comboBoxCurrency.setBounds(77, 189, 193, 33);
-		add(comboBoxCurrency);
+		cbFrom = new JComboBox<String>();
+		cbFrom.setBackground(new Color(0, 0, 0));
+		cbFrom.setForeground(new Color(255, 255, 255));
+		cbFrom.setBounds(77, 189, 193, 33);
+		cbFrom.setModel( new DefaultComboBoxModel<>(currencySymbols.get(1)) );
+		cbFrom.setSelectedIndex(7);
+		add(cbFrom);
 		
 		inputCurrency = new JTextField();
-		inputCurrency.setFont(new Font("Monospaced", Font.BOLD, 12));
+		inputCurrency.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				
+			}
+		});
+		inputCurrency.setHorizontalAlignment(SwingConstants.CENTER);
+		inputCurrency.setFont(new Font("Monospaced", Font.BOLD, 14));
 		inputCurrency.setBounds(319, 188, 154, 33);
 		add(inputCurrency);
 		inputCurrency.setColumns(10);
 		
-		arrowIcon = new JLabel();
-		arrowIcon.setIcon(new ImageIcon("C:\\Users\\JAPM_\\eclipse-workspace\\ConversorJavaChallengeONE\\src\\main\\java\\img\\arrowIcon.png"));
-		arrowIcon.setBounds(278, 233, 35, 39);
-		add(arrowIcon);
-		
-		comboBoxCurrency2 = new JComboBox();
-		comboBoxCurrency2.setForeground(Color.WHITE);
-		comboBoxCurrency2.setBackground(Color.BLACK);
-		comboBoxCurrency2.setBounds(77, 308, 193, 33);
-		add(comboBoxCurrency2);
+		cbTo = new JComboBox<String>();
+		cbTo.setForeground(Color.WHITE);
+		cbTo.setBackground(Color.BLACK);
+		cbTo.setBounds(77, 317, 193, 33);
+		cbTo.setModel( new DefaultComboBoxModel<>(currencySymbols.get(1)) );
+		cbTo.setSelectedIndex(50);
+		add(cbTo);
 		
 		outputCurrency = new JTextField();
-		outputCurrency.setFont(new Font("Monospaced", Font.BOLD, 12));
+		outputCurrency.setHorizontalAlignment(SwingConstants.CENTER);
+		outputCurrency.setEditable(false);
+		outputCurrency.setFont(new Font("Monospaced", Font.BOLD, 14));
 		outputCurrency.setColumns(10);
-		outputCurrency.setBounds(319, 307, 154, 33);
+		outputCurrency.setBounds(319, 316, 154, 33);
 		add(outputCurrency);
 		
 		txtSubtitle = new JLabel("Cambiar de:");
@@ -74,7 +96,7 @@ public class CurrencyPanel extends JPanel {
 		
 		txtSubtitle = new JLabel("Cambiar a:");
 		txtSubtitle.setFont(new Font("Monospaced", Font.BOLD, 16));
-		txtSubtitle.setBounds(231, 283, 108, 14);
+		txtSubtitle.setBounds(231, 292, 108, 14);
 		add(txtSubtitle);
 		
 		currencyIcon = new JLabel();
@@ -82,6 +104,53 @@ public class CurrencyPanel extends JPanel {
 		currencyIcon.setIcon(new ImageIcon("C:\\Users\\JAPM_\\eclipse-workspace\\ConversorJavaChallengeONE\\src\\main\\java\\img\\currencyIcon.png"));
 		currencyIcon.setBounds(62, 22, 108, 109);
 		add(currencyIcon);
+		
+		btnConveter = new PanelRound();
+		btnConveter.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				double amount;
+				try {
+					getCbFrom = currencySymbols.get(0)[cbFrom.getSelectedIndex()];
+					getCbTo = currencySymbols.get(0)[cbTo.getSelectedIndex()];
+					amount = Double.parseDouble(inputCurrency.getText());
+					if ( getCbFrom != getCbTo && amount >= 0  ) {
+						amount = ExchangeApiRequest.getCurrencyRequest(getCbFrom, getCbTo, amount);
+						DecimalFormat df = new DecimalFormat("#0.00");
+						outputCurrency.setText(df.format(amount) + " " + getCbTo);
+					}else if( getCbFrom == getCbTo ) {
+						JOptionPane.showMessageDialog(null, "Las unidades no pueden ser iguales", "Divisas iguales", WARNING_MESSAGE);
+					}else if ( amount < 0 ) {
+						JOptionPane.showMessageDialog(null, "La cantidad tiene que ser mayor o igual a 0", "Unidades del mismo valor", WARNING_MESSAGE);
+					}
+				} catch (NumberFormatException n) {
+					JOptionPane.showMessageDialog( null, "Solo se admiten valores numéricos", "Solo valores numéricos", WARNING_MESSAGE);
+					inputCurrency.setText("");
+				}
+			}
+		});
+		btnConveter.setBackground(new Color(0, 0, 0));
+		btnConveter.setBounds(213, 240, 154, 41);
+		btnConveter.setRoundBottomLeft(25);
+		btnConveter.setRoundBottomRight(25);
+		btnConveter.setRoundTopLeft(25);
+		btnConveter.setRoundTopRight(25);
+		add(btnConveter);
+		btnConveter.setLayout(null);
+		
+		txtButton = new JLabel("Convertir");
+		txtButton.setBounds(33, 11, 90, 19);
+		txtButton.setFont(new Font("Monospaced", Font.BOLD, 16));
+		txtButton.setHorizontalAlignment(SwingConstants.CENTER);
+		txtButton.setForeground(new Color(255, 255, 255));
+		btnConveter.add(txtButton);
 	}
-
+	
+	public void resetCurrencyPanel() {
+		inputCurrency.setText("");
+		outputCurrency.setText("");
+		cbFrom.setSelectedIndex(7);
+		cbTo.setSelectedIndex(50);
+	}
+	
 }

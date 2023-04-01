@@ -47,7 +47,7 @@ public class ExchangeApiRequest {
 	}
 	
 	
-	public static double getCurrencyRequest( String amount, String from, String to ) {
+	public static double getCurrencyRequest( String from, String to, double amount ) {
 		
 		StringBuffer response;
 		try {

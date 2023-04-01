@@ -2,20 +2,29 @@ package com.picasso.menu;
 
 import java.awt.Color;
 import java.awt.Font;
+import static javax.swing.JOptionPane.WARNING_MESSAGE;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import com.picasso.methods.TemperatureConverter;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 @SuppressWarnings("serial")
 public class TemperaturePanel extends JPanel {
-	private JLabel txtTitle, tempIcon, arrowIcon, txtSubtitle;
+	private JLabel txtTitle, tempIcon, txtSubtitle, txtButton;
 	private JSeparator separator, separator_1;
 	private JTextField inputTemperature, outputTemperature;
-	private JComboBox comboBoxTemp, comboBoxTemp2;
+	private JComboBox<String> cbFrom, cbTo;
+	private String getCbFrom, getCbTo;
+	private String[] temperatureUnits;
+	private PanelRound btnConveter;
 
 	/**
 	 * Create the panel.
@@ -24,6 +33,7 @@ public class TemperaturePanel extends JPanel {
 		setBounds(229, 0, 534, 386);
 		setLayout(null);
 		setVisible(false);
+		temperatureUnits = TemperatureConverter.getTempUnits();
 		
 		txtTitle = new JLabel("Conversor de temperatura");
 		txtTitle.setHorizontalAlignment(SwingConstants.CENTER);
@@ -47,47 +57,92 @@ public class TemperaturePanel extends JPanel {
 		tempIcon.setBounds(61, 30, 65, 108);
 		add(tempIcon);
 		
-		arrowIcon = new JLabel();
-		arrowIcon.setIcon(new ImageIcon("C:\\Users\\JAPM_\\eclipse-workspace\\ConversorJavaChallengeONE\\src\\main\\java\\img\\arrowIcon.png"));
-		arrowIcon.setBounds(263, 232, 35, 39);
-		add(arrowIcon);
-		
 		txtSubtitle = new JLabel("Valor en:");
 		txtSubtitle.setFont(new Font("Monospaced", Font.BOLD, 16));
-		txtSubtitle.setBounds(236, 200, 100, 14);
+		txtSubtitle.setBounds(224, 158, 100, 14);
 		add(txtSubtitle);
 		
 		txtSubtitle = new JLabel("Cambiar a:");
 		txtSubtitle.setFont(new Font("Monospaced", Font.BOLD, 16));
-		txtSubtitle.setBounds(236, 289, 100, 14);
+		txtSubtitle.setBounds(224, 306, 100, 14);
 		add(txtSubtitle);
 		
-		comboBoxTemp = new JComboBox();
-		comboBoxTemp.setBackground(new Color(0, 0, 0));
-		comboBoxTemp.setForeground(new Color(255, 255, 255));
-		comboBoxTemp.setBounds(338, 193, 130, 33);
-		add(comboBoxTemp);
+		cbFrom = new JComboBox<String>();
+		cbFrom.setBackground(new Color(0, 0, 0));
+		cbFrom.setForeground(new Color(255, 255, 255));
+		cbFrom.setBounds(110, 183, 130, 33);
+		cbFrom.setModel( new DefaultComboBoxModel<String>( temperatureUnits ) );
+		cbFrom.setSelectedIndex(0);
+		add(cbFrom);
 		
 		inputTemperature = new JTextField();
-		inputTemperature.setFont(new Font("Monospaced", Font.BOLD, 12));
-		inputTemperature.setBounds(72, 192, 154, 33);
+		inputTemperature.setHorizontalAlignment(SwingConstants.CENTER);
+		inputTemperature.setFont(new Font("Monospaced", Font.BOLD, 14));
+		inputTemperature.setBounds(301, 182, 135, 33);
 		add(inputTemperature);
 		inputTemperature.setColumns(10);
 		
-		comboBoxTemp2 = new JComboBox();
-		comboBoxTemp2.setForeground(Color.WHITE);
-		comboBoxTemp2.setBackground(Color.BLACK);
-		comboBoxTemp2.setBounds(338, 282, 130, 33);
-		add(comboBoxTemp2);
+		cbTo = new JComboBox<String>();
+		cbTo.setForeground(Color.WHITE);
+		cbTo.setBackground(Color.BLACK);
+		cbTo.setBounds(107, 331, 130, 33);
+		cbTo.setModel( new DefaultComboBoxModel<String>( temperatureUnits ) );
+		cbTo.setSelectedIndex(1);
+		add(cbTo);
 		
 		outputTemperature = new JTextField();
-		outputTemperature.setFont(new Font("Monospaced", Font.BOLD, 12));
+		outputTemperature.setEditable(false);
+		outputTemperature.setHorizontalAlignment(SwingConstants.CENTER);
+		outputTemperature.setFont(new Font("Monospaced", Font.BOLD, 14));
 		outputTemperature.setColumns(10);
-		outputTemperature.setBounds(72, 281, 154, 33);
-		add(outputTemperature);			
+		outputTemperature.setBounds(301, 330, 135, 33);
+		add(outputTemperature);
+		
+		btnConveter = new PanelRound();
+		btnConveter.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				double getInput;
+				try {
+					getInput = Double.parseDouble(inputTemperature.getText());
+					getCbFrom = temperatureUnits[ cbFrom.getSelectedIndex() ];
+					getCbTo = temperatureUnits[ cbTo.getSelectedIndex() ];
+					if ( getCbFrom != getCbTo ) {
+						outputTemperature.setText(TemperatureConverter.convertTemperature(getCbFrom, getCbTo, getInput) + " " + getCbTo);	
+					}else {
+						JOptionPane.showMessageDialog(null, "Las unidades no pueden ser iguales", "Unidades iguales", WARNING_MESSAGE);
+						inputTemperature.setText("");
+						outputTemperature.setText("");
+					}
+				} catch (NumberFormatException n) {
+					JOptionPane.showMessageDialog(null, "Solo se admiten valores numéricos", "Solo valores numéricos", WARNING_MESSAGE);
+					inputTemperature.setText("");
+				}
+			}
+		});
+		btnConveter.setBackground(new Color(0, 0, 0));
+		btnConveter.setBounds(190, 242, 154, 41);
+		btnConveter.setRoundBottomLeft(25);
+		btnConveter.setRoundBottomRight(25);
+		btnConveter.setRoundTopLeft(25);
+		btnConveter.setRoundTopRight(25);
+		add(btnConveter);
+		btnConveter.setLayout(null);
 		
 		
-
+		txtButton = new JLabel("Convertir");
+		txtButton.setBounds(33, 11, 90, 19);
+		txtButton.setFont(new Font("Monospaced", Font.BOLD, 16));
+		txtButton.setHorizontalAlignment(SwingConstants.CENTER);
+		txtButton.setForeground(new Color(255, 255, 255));
+		btnConveter.add(txtButton);
 	}
-
+	
+	public void resetTemperaturePanel() {
+		inputTemperature.setText("");
+		outputTemperature.setText("");
+		cbFrom.setSelectedIndex(0);
+		cbTo.setSelectedIndex(1);
+	}
+	
 }
