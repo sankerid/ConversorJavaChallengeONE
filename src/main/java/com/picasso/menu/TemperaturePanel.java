@@ -26,9 +26,7 @@ public class TemperaturePanel extends JPanel {
 	private String[] temperatureUnits;
 	private PanelRound btnConveter;
 
-	/**
-	 * Create the panel.
-	 */
+	
 	public TemperaturePanel() {
 		setBounds(229, 0, 534, 386);
 		setLayout(null);
@@ -99,7 +97,35 @@ public class TemperaturePanel extends JPanel {
 		add(outputTemperature);
 		
 		btnConveter = new PanelRound();
+		btnConveter.setBackground(new Color(0, 0, 0));
+		btnConveter.setBounds(190, 242, 154, 41);
+		btnConveter.setRoundBottomLeft(25);
+		btnConveter.setRoundBottomRight(25);
+		btnConveter.setRoundTopLeft(25);
+		btnConveter.setRoundTopRight(25);
+		add(btnConveter);
+		btnConveter.setLayout(null);
+		
+		txtButton = new JLabel("Convertir");
+		txtButton.setBounds(33, 11, 90, 19);
+		txtButton.setFont(new Font("Monospaced", Font.BOLD, 16));
+		txtButton.setHorizontalAlignment(SwingConstants.CENTER);
+		txtButton.setForeground(new Color(255, 255, 255));
+		btnConveter.add(txtButton);
+		
+		//  Class events
+		
 		btnConveter.addMouseListener(new MouseAdapter() {
+			/**
+			 * Adds a mouse listener to the btnConvert component, which is triggered when the mouse is clicked on the component.
+			 * When triggered, it performs the following actions:
+			 	* Gets the value of the inputTemperature component and converts it to a double using Double.parseDouble().
+			 	* Gets the selected index values of the cbFrom and cbTo components, and uses them to retrieve the corresponding temperature units from the temperatureUnits array.
+			 	* If the selected temperature units are not the same, it calls the TemperatureConverter.convertTemperature() method to convert the input temperature to the desired temperature unit and displays the result in the outputTemperature component.
+			 	* If the selected temperature units are the same, it displays an error message using JOptionPane.showMessageDialog() and resets the inputTemperature and outputTemperature components to empty strings.
+			 	* If the input temperature value is not a valid number, it displays an error message using JOptionPane.showMessageDialog() and resets the inputTemperature component to an empty string.
+			 * @param e the MouseEvent object representing the mouse click event 
+			*/
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				double getInput;
@@ -120,24 +146,15 @@ public class TemperaturePanel extends JPanel {
 				}
 			}
 		});
-		btnConveter.setBackground(new Color(0, 0, 0));
-		btnConveter.setBounds(190, 242, 154, 41);
-		btnConveter.setRoundBottomLeft(25);
-		btnConveter.setRoundBottomRight(25);
-		btnConveter.setRoundTopLeft(25);
-		btnConveter.setRoundTopRight(25);
-		add(btnConveter);
-		btnConveter.setLayout(null);
-		
-		
-		txtButton = new JLabel("Convertir");
-		txtButton.setBounds(33, 11, 90, 19);
-		txtButton.setFont(new Font("Monospaced", Font.BOLD, 16));
-		txtButton.setHorizontalAlignment(SwingConstants.CENTER);
-		txtButton.setForeground(new Color(255, 255, 255));
-		btnConveter.add(txtButton);
 	}
 	
+	// Class methods
+	
+	/**
+	 * Resets the TemperaturePanel to its initial state.
+	 * Sets the input and output fields to an empty string.
+	 * Sets the selected items of the "From" and "To" currency comboboxes to default values.
+	*/
 	public void resetTemperaturePanel() {
 		inputTemperature.setText("");
 		outputTemperature.setText("");

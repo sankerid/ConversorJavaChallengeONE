@@ -16,6 +16,14 @@ public class ExchangeApiRequest {
 	
 	private static final String apiKey = "at4roU8DIOs1C6OQvHHiwS0uxUh7F5Mp";
 	
+	/**
+	 * Sends an HTTP GET request to the API endpoint with the specified type of request and API key,
+	 * and returns the response as a StringBuffer.
+	 * @param typeOfRequest a String representing the type of request to send to the API endpoint.
+	 * @param apiKey a String representing the API key required to access the API endpoint.
+	 * @return a StringBuffer representing the response received from the API endpoint, or null if the response is invalid.
+	 * @throws IOException if there is an error while sending the HTTP GET request.
+	*/
 	private static StringBuffer sendHttpGetRequest( String typeOfRequest, String apiKey ) throws IOException {
 		
 		String URL_GET = "https://api.apilayer.com/exchangerates_data/" + typeOfRequest;
@@ -47,6 +55,13 @@ public class ExchangeApiRequest {
 	}
 	
 	
+	/**
+	 * This static method retrieves the exchange rate for a given currency conversion.
+	 * @param from the currency code to convert from.
+	 * @param to the currency code to convert to.
+	 * @param amount the amount to convert.
+	 * @return the converted amount based on the current exchange rate.
+	*/
 	public static double getCurrencyRequest( String from, String to, double amount ) {
 		
 		StringBuffer response;
@@ -71,6 +86,15 @@ public class ExchangeApiRequest {
 	}
 	
 	
+	/**
+	 * This method is a static method of the ExchangeApiRequest class that allows obtaining the symbols of the different currencies available through a GET request.
+	 * The method uses the sendHttpGetRequest method to connect to the API and retrieve the response.
+	 * If the response is not null, the method extracts the symbols and their descriptions, sorts them alphabetically and stores them in a list of string arrays.
+	 * @return List<String[]> - A list of string arrays that contains the symbols of the currencies and their descriptions, sorted alphabetically.
+	 	* If the response is null, returns null.
+	 * @throws IOException - Signals that an I/O exception of some sort has occurred.
+	 * @see sendHttpGetRequest.
+	*/
 	public static List<String[]> getSymbolsRequest(){
 		
 		StringBuffer response;

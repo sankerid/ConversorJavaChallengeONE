@@ -156,16 +156,16 @@ public class JMenu extends JFrame {
 		
 		//  Class events
 		
-		/**
-		* This method is called when the mouse is clicked on a component.
-		* It sets the visibility of temperaturePanel to true, and the visibility of currencyPanel and infoPanel to false.
-		* It also sets the background color of btnTemp to white and the foreground color of txtBtnTemp to black.
-		* Additionally, it sets the background color of btnExit to a dark gray and the foreground color of txtBtnExit to a light gray.
-		* Finally, it sets the background color of btnCurrency to a dark gray and the foreground color of txtBtnCurrency to a light gray, 
-		* and resets the currencyPanel to its initial state.
-		* @param e the MouseEvent object representing the mouse click event
-		*/
 		btnTemp.addMouseListener(new MouseAdapter() {
+			/**
+			* Adds a mouse listener to the btnTemp component, which is triggered when the mouse is clicked on the component.
+			* When triggered, it sets the visibility of the temperaturePanel to true, and the visibility of the infoPanel and currencyPanel to false.
+			* It also sets the background color of btnTemp to white and the foreground color of txtBtnTem to black.
+			* Additionally, it sets the background color of btnExit to a dark gray and the foreground color of txtBtnExit to a light gray.
+			* Finally, it sets the background color of btnCurrency to a dark gray and the foreground color of txtBtnCurrency to a light gray,
+			* and resets the currencyPanel to its initial state.
+			* @param e the MouseEvent object representing the mouse click event
+			*/
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				temperaturePanel.setVisible(true);
@@ -183,6 +183,15 @@ public class JMenu extends JFrame {
 		
 		
 		btnCurrency.addMouseListener(new MouseAdapter() {
+			/**
+			* Adds a mouse listener to the btnCurrency component, which is triggered when the mouse is clicked on the component.
+			* When triggered, it sets the visibility of the currencyPanel to true, and the visibility of the infoPanel and temperaturePanel to false.
+			* It also sets the background color of btnCurrency to white and the foreground color of txtBtnCurrency to black.
+			* Additionally, it sets the background color of btnExit to a dark gray and the foreground color of txtBtnExit to a light gray.
+			* Finally, it sets the background color of btnTemp to a dark gray and the foreground color of txtBtnTemp to a light gray,
+			* and resets the temperaturePanel to its initial state.
+			* @param e the MouseEvent object representing the mouse click event
+			*/
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				currencyPanel.setVisible(true);
@@ -200,6 +209,13 @@ public class JMenu extends JFrame {
 		
 		
 		btnExit.addMouseListener(new MouseAdapter() {
+			/**
+			* Adds a mouse listener to the btnExit component, which is triggered when the mouse is clicked or pressed on the component.
+			* When triggered by a mouse click, it exits the application with a status code of 0.
+			* When triggered by a mouse press, it sets the background color of btnExit to white and the foreground color of txtBtnExit to black.
+			* Additionally, it sets the background color of btnTemp and btnCurrency to a dark gray and the foreground color of txtBtnTemp and txtBtnCurrency to a light gray.
+			* @param e the MouseEvent object representing the mouse event
+			*/
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.exit(0);
@@ -217,6 +233,11 @@ public class JMenu extends JFrame {
 		
 		
 		gitIcon.addMouseListener(new MouseAdapter() {
+			/**
+			* Adds a mouse listener to the gitIcon component, which is triggered when the mouse is clicked on the component.
+			* When triggered, it opens the specified URL, "https://github.com/A-Picasso", in the default web browser using the goToURL() method.
+			* @param e the MouseEvent object representing the mouse click event
+			*/
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				goToURL("https://github.com/A-Picasso");
@@ -225,6 +246,11 @@ public class JMenu extends JFrame {
 		
 		
 		linkIcon.addMouseListener(new MouseAdapter() {
+			/**
+			* Adds a mouse listener to the linkIcon component, which is triggered when the mouse is clicked on the component.
+			* When triggered, it opens the specified URL, "https://www.linkedin.com/in/jose-alberto-picasso-mtz/", in the default web browser using the goToURL() method.
+			* @param e the MouseEvent object representing the mouse click event
+			*/
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				goToURL("https://www.linkedin.com/in/jose-alberto-picasso-mtz/");
@@ -234,8 +260,15 @@ public class JMenu extends JFrame {
 	}
 	
 	
+	
 	// Class methods
 	
+	
+	/**
+	 * Opens the specified URL in the default web browser on the user's system, if the Desktop API is supported.
+	 * If the Desktop API is not supported or the BROWSE action is not supported, nothing happens.
+	 * @param url the URL to open in the default web browser.
+	*/
 	public void goToURL( String url ) {
 		if ( Desktop.isDesktopSupported() ) {
 			Desktop desktop = Desktop.getDesktop();

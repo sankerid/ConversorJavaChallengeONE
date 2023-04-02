@@ -13,37 +13,73 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class PanelRound extends JPanel {
 
+	/**
+	 * Returns the value of the roundness of the top left corner of the panel.
+	 * @return The value of the roundness of the top left corner of the panel.
+	*/
     public int getRoundTopLeft() {
         return roundTopLeft;
     }
 
+    /**
+     *  Sets the value of the roundness for the top-left corner of the panel and triggers a repaint of the panel
+     *  with the updated value. This method allows to customize the appearance of the panel by modifying the roundness of its corners.
+     *   @param roundTopLeft the new value of the roundness for the top-left corner of the panel.
+    */
     public void setRoundTopLeft(int roundTopLeft) {
         this.roundTopLeft = roundTopLeft;
         repaint();
     }
 
+    /**
+	 * Returns the value of the roundness of the top right corner of the panel.
+	 * @return The value of the roundness of the top right corner of the panel.
+	*/
     public int getRoundTopRight() {
         return roundTopRight;
     }
 
+    /**
+     *  Sets the value of the roundness for the top-right corner of the panel and triggers a repaint of the panel
+     *  with the updated value. This method allows to customize the appearance of the panel by modifying the roundness of its corners.
+     *   @param roundTopRight the new value of the roundness for the top-right corner of the panel.
+    */
     public void setRoundTopRight(int roundTopRight) {
         this.roundTopRight = roundTopRight;
         repaint();
     }
 
+    /**
+	 * Returns the value of the roundness of the bottom left corner of the panel.
+	 * @return The value of the roundness of the bottom left corner of the panel.
+	*/
     public int getRoundBottomLeft() {
         return roundBottomLeft;
     }
 
+    /**
+     *  Sets the value of the roundness for the bottom-left corner of the panel and triggers a repaint of the panel
+     *  with the updated value. This method allows to customize the appearance of the panel by modifying the roundness of its corners.
+     *   @param roundBottomLeft the new value of the roundness for the bottom-left corner of the panel.
+    */
     public void setRoundBottomLeft(int roundBottomLeft) {
         this.roundBottomLeft = roundBottomLeft;
         repaint();
     }
 
+    /**
+	 * Returns the value of the roundness of the bottom right corner of the panel.
+	 * @return The value of the roundness of the bottom right corner of the panel.
+	*/
     public int getRoundBottomRight() {
         return roundBottomRight;
     }
 
+    /**
+     *  Sets the value of the roundness for the bottom-right corner of the panel and triggers a repaint of the panel
+     *  with the updated value. This method allows to customize the appearance of the panel by modifying the roundness of its corners.
+     *   @param roundBottomRight the new value of the roundness for the bottom-right corner of the panel.
+    */
     public void setRoundBottomRight(int roundBottomRight) {
         this.roundBottomRight = roundBottomRight;
         repaint();
@@ -58,6 +94,12 @@ public class PanelRound extends JPanel {
         setOpaque(false);
     }
 
+    /**
+     * Overrides the paintComponent method from the superclass to customize the rendering of the component.
+     * This method creates a new Graphics2D object, sets antialiasing rendering hint to improve the appearance of the rounded corners, fills a shape defined by the roundTopLeft, roundTopRight, roundBottomLeft and
+     * roundBottomRight properties and disposes of the Graphics2D object. This method also calls the paintComponent method of the superclass to paint any child components of this PanelRound.
+     *  @param grphcs the graphics context to use for painting.
+    */
     @Override
     protected void paintComponent(Graphics grphcs) {
         Graphics2D g2 = (Graphics2D) grphcs.create();

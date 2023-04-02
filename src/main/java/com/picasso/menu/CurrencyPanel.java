@@ -17,8 +17,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
 import static javax.swing.JOptionPane.WARNING_MESSAGE;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 @SuppressWarnings("serial")
 public class CurrencyPanel extends JPanel {
@@ -61,12 +59,6 @@ public class CurrencyPanel extends JPanel {
 		add(cbFrom);
 		
 		inputCurrency = new JTextField();
-		inputCurrency.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				
-			}
-		});
 		inputCurrency.setHorizontalAlignment(SwingConstants.CENTER);
 		inputCurrency.setFont(new Font("Monospaced", Font.BOLD, 14));
 		inputCurrency.setBounds(319, 188, 154, 33);
@@ -106,7 +98,32 @@ public class CurrencyPanel extends JPanel {
 		add(currencyIcon);
 		
 		btnConveter = new PanelRound();
+		btnConveter.setBackground(new Color(0, 0, 0));
+		btnConveter.setBounds(213, 240, 154, 41);
+		btnConveter.setRoundBottomLeft(25);
+		btnConveter.setRoundBottomRight(25);
+		btnConveter.setRoundTopLeft(25);
+		btnConveter.setRoundTopRight(25);
+		add(btnConveter);
+		btnConveter.setLayout(null);
+		
+		txtButton = new JLabel("Convertir");
+		txtButton.setBounds(33, 11, 90, 19);
+		txtButton.setFont(new Font("Monospaced", Font.BOLD, 16));
+		txtButton.setHorizontalAlignment(SwingConstants.CENTER);
+		txtButton.setForeground(new Color(255, 255, 255));
+		btnConveter.add(txtButton);
+		
+		//  Class events
+		
+		
 		btnConveter.addMouseListener(new MouseAdapter() {
+			/**
+			 * Event that is executed when clicking on the "Convert" button and performs the conversion of the amount
+			 * entered in the selected currency to the target currency, and displays the result in the corresponding field.
+			 * If the selected units are the same or the amount is negative, it displays an error message.
+			 * @param e Mouse event when clicking on the "Convert" button
+			*/
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				double amount;
@@ -129,23 +146,15 @@ public class CurrencyPanel extends JPanel {
 				}
 			}
 		});
-		btnConveter.setBackground(new Color(0, 0, 0));
-		btnConveter.setBounds(213, 240, 154, 41);
-		btnConveter.setRoundBottomLeft(25);
-		btnConveter.setRoundBottomRight(25);
-		btnConveter.setRoundTopLeft(25);
-		btnConveter.setRoundTopRight(25);
-		add(btnConveter);
-		btnConveter.setLayout(null);
-		
-		txtButton = new JLabel("Convertir");
-		txtButton.setBounds(33, 11, 90, 19);
-		txtButton.setFont(new Font("Monospaced", Font.BOLD, 16));
-		txtButton.setHorizontalAlignment(SwingConstants.CENTER);
-		txtButton.setForeground(new Color(255, 255, 255));
-		btnConveter.add(txtButton);
 	}
 	
+	// Class methods
+	
+	/**
+	 * Resets the CurrencyPanel to its initial state.
+	 * Sets the input and output fields to an empty string.
+	 * Sets the selected items of the "From" and "To" currency comboboxes to default values.
+	*/
 	public void resetCurrencyPanel() {
 		inputCurrency.setText("");
 		outputCurrency.setText("");
