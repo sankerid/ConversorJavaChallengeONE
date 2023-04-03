@@ -93,7 +93,7 @@ public class CurrencyPanel extends JPanel {
 		
 		currencyIcon = new JLabel();
 		currencyIcon.setHorizontalAlignment(SwingConstants.CENTER);
-		currencyIcon.setIcon(new ImageIcon("C:\\Users\\JAPM_\\eclipse-workspace\\ConversorJavaChallengeONE\\src\\main\\java\\img\\currencyIcon.png"));
+		currencyIcon.setIcon(new ImageIcon("src/main/java/img/currencyIcon.png"));
 		currencyIcon.setBounds(62, 22, 108, 109);
 		add(currencyIcon);
 		

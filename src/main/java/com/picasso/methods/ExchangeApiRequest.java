@@ -55,6 +55,7 @@ public class ExchangeApiRequest {
 	}
 	
 	
+	
 	/**
 	 * This static method retrieves the exchange rate for a given currency conversion.
 	 * @param from the currency code to convert from.
@@ -84,6 +85,7 @@ public class ExchangeApiRequest {
 		
 		return 0.0;
 	}
+	
 	
 	
 	/**
@@ -137,7 +139,5 @@ public class ExchangeApiRequest {
 		return null;
 		
 	}
+	
 }
-
-
-

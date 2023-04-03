@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import static javax.swing.JOptionPane.WARNING_MESSAGE;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -18,12 +19,14 @@ import java.awt.event.MouseEvent;
 
 @SuppressWarnings("serial")
 public class TemperaturePanel extends JPanel {
+	
 	private JLabel txtTitle, tempIcon, txtSubtitle, txtButton;
 	private JSeparator separator, separator_1;
 	private JTextField inputTemperature, outputTemperature;
 	private JComboBox<String> cbFrom, cbTo;
 	private String getCbFrom, getCbTo;
 	private String[] temperatureUnits;
+	private DefaultListCellRenderer listRenderer;
 	private PanelRound btnConveter;
 
 	
@@ -51,7 +54,7 @@ public class TemperaturePanel extends JPanel {
 		
 		tempIcon = new JLabel();
 		tempIcon.setHorizontalAlignment(SwingConstants.CENTER);
-		tempIcon.setIcon(new ImageIcon("C:\\Users\\JAPM_\\eclipse-workspace\\ConversorJavaChallengeONE\\src\\main\\java\\img\\temperatureIcon.png"));
+		tempIcon.setIcon(new ImageIcon("src/main/java/img/temperatureIcon.png"));
 		tempIcon.setBounds(61, 30, 65, 108);
 		add(tempIcon);
 		
@@ -71,6 +74,9 @@ public class TemperaturePanel extends JPanel {
 		cbFrom.setBounds(110, 183, 130, 33);
 		cbFrom.setModel( new DefaultComboBoxModel<String>( temperatureUnits ) );
 		cbFrom.setSelectedIndex(0);
+		listRenderer = new DefaultListCellRenderer();
+		listRenderer.setHorizontalAlignment(DefaultListCellRenderer.CENTER);
+		cbFrom.setRenderer(listRenderer);
 		add(cbFrom);
 		
 		inputTemperature = new JTextField();
@@ -86,6 +92,9 @@ public class TemperaturePanel extends JPanel {
 		cbTo.setBounds(107, 331, 130, 33);
 		cbTo.setModel( new DefaultComboBoxModel<String>( temperatureUnits ) );
 		cbTo.setSelectedIndex(1);
+		listRenderer = new DefaultListCellRenderer();
+		listRenderer.setHorizontalAlignment(DefaultListCellRenderer.CENTER);
+		cbTo.setRenderer(listRenderer);
 		add(cbTo);
 		
 		outputTemperature = new JTextField();

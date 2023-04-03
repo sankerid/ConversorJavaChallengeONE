@@ -31,7 +31,7 @@ public class JMenu extends JFrame {
 
 	
 	public JMenu() {
-		icon = new ImageIcon(getClass().getResource("/img/programIcon.png")).getImage();
+		icon = new ImageIcon(getClass().getResource("/img/logoAlura.png")).getImage();
 		setIconImage(icon);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

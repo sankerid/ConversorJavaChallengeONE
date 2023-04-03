@@ -1,6 +1,5 @@
 package com.picasso.menu;
 
-
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -120,6 +119,10 @@ public class PanelRound extends JPanel {
         super.paintComponent(grphcs);
     }
 
+    /**
+     *  Creates a Shape object that represents a rounded corner at the top-left of the panel.
+     *  @return A Shape object representing the rounded corner at the top-left of the panel.
+    */
     private Shape createRoundTopLeft() {
         int width = getWidth();
         int height = getHeight();
@@ -131,6 +134,10 @@ public class PanelRound extends JPanel {
         return area;
     }
 
+    /**
+     * Creates a Shape object that represents a rounded corner at the top-right of the panel.
+     * @return A Shape object representing the rounded corner at the top-right of the panel.
+    */
     private Shape createRoundTopRight() {
         int width = getWidth();
         int height = getHeight();
@@ -142,6 +149,10 @@ public class PanelRound extends JPanel {
         return area;
     }
 
+    /**
+     * Creates a Shape object that represents a rounded corner at the bottom-left of the panel.
+     * @return A Shape object representing the rounded corner at the bottom-left of the panel.
+    */
     private Shape createRoundBottomLeft() {
         int width = getWidth();
         int height = getHeight();
@@ -153,6 +164,10 @@ public class PanelRound extends JPanel {
         return area;
     }
 
+    /**
+     * Creates a Shape object that represents a rounded corner at the bottom-right of the panel.
+     * @return A Shape object representing the rounded corner at the bottom-right of the panel.
+    */
     private Shape createRoundBottomRight() {
         int width = getWidth();
         int height = getHeight();
