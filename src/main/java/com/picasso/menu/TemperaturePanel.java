@@ -13,13 +13,14 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import com.picasso.interfaces.IReset;
 import com.picasso.methods.TemperatureConverter;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-@SuppressWarnings("serial")
-public class TemperaturePanel extends JPanel {
+public class TemperaturePanel extends JPanel implements IReset {
 	
+	private static final long serialVersionUID = 1L;
 	private JLabel txtTitle, tempIcon, txtSubtitle, txtButton;
 	private JSeparator separator, separator_1;
 	private JTextField inputTemperature, outputTemperature;
@@ -28,9 +29,9 @@ public class TemperaturePanel extends JPanel {
 	private String[] temperatureUnits;
 	private DefaultListCellRenderer listRenderer;
 	private PanelRound btnConveter;
-
 	
 	public TemperaturePanel() {
+		
 		setBounds(229, 0, 534, 386);
 		setLayout(null);
 		setVisible(false);
@@ -164,7 +165,8 @@ public class TemperaturePanel extends JPanel {
 	 * Sets the input and output fields to an empty string.
 	 * Sets the selected items of the "From" and "To" currency comboboxes to default values.
 	*/
-	public void resetTemperaturePanel() {
+	@Override
+	public void resetPanel() {
 		inputTemperature.setText("");
 		outputTemperature.setText("");
 		cbFrom.setSelectedIndex(0);

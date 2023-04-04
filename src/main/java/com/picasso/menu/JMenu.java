@@ -19,9 +19,9 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-@SuppressWarnings("serial")
 public class JMenu extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane, navPanel, infoPanel, btnExit, btnCurrency, btnTemp;
 	private JSeparator separator, separator_1;
 	private JLabel txtSubtitle, txtTitle, tempIcon, currencyIcon, txtBtnCurrency, txtBtnExit, txtBtnTemp, gitIcon, linkIcon;
@@ -177,7 +177,7 @@ public class JMenu extends JFrame {
 				txtBtnExit.setForeground(new Color(240,240,240));
 				btnCurrency.setBackground(new Color(63,63,63));
 				txtBtnCurrency.setForeground(new Color(240,240,240));
-				currencyPanel.resetCurrencyPanel();
+				currencyPanel.resetPanel();
 			}
 		});
 		
@@ -203,7 +203,7 @@ public class JMenu extends JFrame {
 				txtBtnExit.setForeground(new Color(240,240,240));
 				btnTemp.setBackground(new Color(63,63,63));
 				txtBtnTemp.setForeground(new Color(240,240,240));
-				temperaturePanel.resetTemperaturePanel();
+				temperaturePanel.resetPanel();
 			}
 		});
 		

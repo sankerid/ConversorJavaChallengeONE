@@ -9,9 +9,9 @@ import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
 import javax.swing.JPanel;
 
-@SuppressWarnings("serial")
 public class PanelRound extends JPanel {
 
+	private static final long serialVersionUID = 1L;
 	/**
 	 * Returns the value of the roundness of the top left corner of the panel.
 	 * @return The value of the roundness of the top left corner of the panel.

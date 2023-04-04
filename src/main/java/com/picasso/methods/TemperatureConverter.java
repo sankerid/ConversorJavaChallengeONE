@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 
 public class TemperatureConverter {
 	
-	private static String[] tempUnits = {"C°", "F°", "K°"};
+	private static String[] tempUnits = {"°C", "°F", "°K"};
 	
 	/**
 	 * Static method that converts a temperature value from one unit to another based on the conversion formulas.
@@ -21,24 +21,24 @@ public class TemperatureConverter {
 		
 		switch( cbFrom ) {
 		
-		case "C°":
-			if (cbTo.equals("F°")) {
+		case "°C":
+			if (cbTo.equals("°F")) {
 				return df.format((temp * 1.8) + 32);
-			} else if( cbTo.equals("K°")) {
+			} else if( cbTo.equals("°K")) {
 				return df.format(temp + 273.15);
 			}
 			break;
-		case "F°":
-			if (cbTo.equals("C°")) {
+		case "°F":
+			if (cbTo.equals("°C")) {
 				return df.format((temp - 32) / 1.8);
-			} else if( cbTo.equals("K°")) {
+			} else if( cbTo.equals("°K")) {
 				return df.format((temp - 32) / 1.8 + 273.15);
 			}
 			break;
-		case "K°":
-			if (cbTo.equals("C°")) {
+		case "°K":
+			if (cbTo.equals("°C")) {
 				return df.format(temp - 273.15);
-			} else if( cbTo.equals("F°")) {
+			} else if( cbTo.equals("°F")) {
 				return df.format((temp - 273.15) * 1.8 + 32);
 			}
 			break;

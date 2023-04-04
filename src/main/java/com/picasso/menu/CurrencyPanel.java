@@ -12,15 +12,16 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import com.picasso.interfaces.IReset;
 import com.picasso.methods.ExchangeApiRequest;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
 import static javax.swing.JOptionPane.WARNING_MESSAGE;
 
-@SuppressWarnings("serial")
-public class CurrencyPanel extends JPanel {
+public class CurrencyPanel extends JPanel implements IReset {
 	
+	private static final long serialVersionUID = 1L;
 	private JTextField inputCurrency, outputCurrency;
 	private JSeparator separator, separator_1;
 	private JLabel txtTitle, txtSubtitle, currencyIcon, txtButton;
@@ -150,12 +151,14 @@ public class CurrencyPanel extends JPanel {
 	
 	// Class methods
 	
+
 	/**
 	 * Resets the CurrencyPanel to its initial state.
 	 * Sets the input and output fields to an empty string.
 	 * Sets the selected items of the "From" and "To" currency comboboxes to default values.
 	*/
-	public void resetCurrencyPanel() {
+	@Override
+	public void resetPanel() {
 		inputCurrency.setText("");
 		outputCurrency.setText("");
 		cbFrom.setSelectedIndex(7);
