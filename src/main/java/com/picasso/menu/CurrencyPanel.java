@@ -56,7 +56,7 @@ public class CurrencyPanel extends JPanel implements IReset {
 		cbFrom.setForeground(new Color(255, 255, 255));
 		cbFrom.setBounds(77, 189, 193, 33);
 		cbFrom.setModel( new DefaultComboBoxModel<>(currencySymbols.get(1)) );
-		cbFrom.setSelectedIndex(7);
+		cbFrom.setSelectedIndex(102);
 		add(cbFrom);
 		
 		inputCurrency = new JTextField();
@@ -71,7 +71,7 @@ public class CurrencyPanel extends JPanel implements IReset {
 		cbTo.setBackground(Color.BLACK);
 		cbTo.setBounds(77, 317, 193, 33);
 		cbTo.setModel( new DefaultComboBoxModel<>(currencySymbols.get(1)) );
-		cbTo.setSelectedIndex(50);
+		cbTo.setSelectedIndex(150);
 		add(cbTo);
 		
 		outputCurrency = new JTextField();
@@ -161,8 +161,8 @@ public class CurrencyPanel extends JPanel implements IReset {
 	public void resetPanel() {
 		inputCurrency.setText("");
 		outputCurrency.setText("");
-		cbFrom.setSelectedIndex(7);
-		cbTo.setSelectedIndex(50);
+		cbFrom.setSelectedIndex(102);
+		cbTo.setSelectedIndex(150);
 	}
 	
 }
